@@ -1,0 +1,106 @@
+<div class="hero is-fullheight has-background-light">
+
+<form class="form" [formGroup]="control">
+  <div class="field is-block is-horizontal">
+    <label class="label has-white-text title is-3">Título</label>
+    <input class="input is-medium" type="text" placeholder="Título do Questionário" formControlName="title" required>
+  </div>
+  <br>
+  <div class="field is-horizontal">
+    <textarea class="textarea is-hidden" placeholder="Descrição do questionário" disabled></textarea>
+  </div>
+  <div class="is-divider" data-content=""></div>
+
+  <div class="field is-grouped is-vcentered">
+    <p class="control">
+      <label class="label">Início:</label>
+      <input class="input" type="date" formControlName="start" required>
+    </p>
+    <p class="control">
+      <label class="label">Fim:</label>
+      <input class="input" type="date" formControlName="end" required>
+    </p>
+  </div>
+
+<div *ngFor="let group of this.survey.groups; let gindex = index">
+  <div class="field is-horizontal" style="margin-top: 2rem;">
+    <label class="label">#{{gindex+1}} Grupo</label>
+    <input class="input" type="text" placeholder="Grupo" formControlName="groups" [(ngModel)]="group.title" (click)="this.loggs()" required>    
+  </div>
+
+  <br>
+  <p class="title is-5">Questões de {{group.title}}</p>
+  <div *ngFor="let q of this.getUnifiedQuestionArray(group); let i = index" class="question" [attr.data-index]="i">
+    <div class="field is-inline">
+      <div class="columns is-mobile">
+      
+        <div class="column is-one-fifth-touch is-1-desktop has-text-centered">
+          <p class="subtitle has-text-gray-ter" style="margin-right: 5px;">#{{i+1}}</p>
+          <span class="icon has-text-danger" (click)="this.removeQuestion(group, q)"><i class="fas fa-trash"></i></span> <!-- click delete -->
+        </div>
+
+        <div class="column">
+          <div class="control is-expanded">
+            
+            <input class="input" type="text" placeholder="Título da Questão" name="questionname{{i}}" [ngModelOptions]="{standalone:true}" [(ngModel)]="q.title" required>
+            <p class="help">Forneça um título sugestivo para as respostas.</p>
+
+            <div *ngIf="q.alternatives !== undefined" class="container">
+              <label class="checkbox"><input checked type="checkbox" name="is_multiple" [(ngModel)]="q.is_multiple" [ngModelOptions]="{standalone:true}"> É múltipla escolha?</label>
+              <div class="control field has-addons" *ngFor="let alt of q.alternatives ; let altindex = index">
+                <input class="input is-small is-right" type="text" [(ngModel)]="alt.text" [ngModelOptions]="{standalone:true}" placeholder="Resposta {{altindex+1}}">
+                <div class="control">
+                  <span class="icon has-text-danger" (click)="this.removeAlternative(q, alt)"><i class="fas fa-trash"></i></span> 
+                </div>
+              </div>
+              <div class="is-narrow is-small">
+                <button class="button" (click)="this.addAlternative(group, q)">Adicionar Escolha</button>
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <br>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="control">
+      <p class="help">Selecione um tipo de alternativa para adicioná-la ao questionário.</p>
+      <!--
+      <div class="select">
+        <select>
+          <option (click)='this.addQuestion(group, "alternative")' value="alternative">Alternativa</option>
+          <option (click)="this.addQuestion(group, 'open')" value="open">Aberta</option>
+        </select>
+      </div>
+      -->
+      <div class="container">
+        <button class="button is-lighter" style="margin: .25rem;" (click)="this.addQuestion(group, 'alternative')" value="alternative">Alternativa</button>
+        <button class="button is-lighter" style="margin: .25rem;" (click)="this.addQuestion(group, 'open')" value="open">Aberta</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="field is-horizontal">
+    <div class="control">
+      <p class="help">Adicionar mais um grupo de questões.</p>
+      <button class="button is-link" style="margin-top: .25rem;" (click)="this.addGroup()">Adicionar Grupo</button>
+    </div>
+  </div>
+
+  <br>
+  <div class="container is-grouped" style="display: flex;align-items: center">
+    <button style="margin: .25rem;" class="button is-pulled-left" type="submit" [disabled]="!control.valid" [ngClass]="{'is-success': control.valid, 'is-danger': !control.valid, 'is-loading': form_status}" (click)="this.saveSurvey()">{{is_param_new ? 'Adicionar' : 'Salvar Edição'}}</button>
+    <button style="margin: .25rem;" class="button is-lighter is-pulled-left" type="submit" [disabled]="control.invalid"  (click)="this.clearSurvey()">Limpar</button>
+    <button style="margin: .25rem;" class="button is-small is-warning is-lighter is-pulled-left" type="submit" (click)="this.goToHome()">Cancelar</button>
+  </div>
+
+
+</form>
+
+</div>

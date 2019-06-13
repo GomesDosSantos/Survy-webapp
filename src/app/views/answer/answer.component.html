@@ -1,0 +1,61 @@
+<div class="hero is-dark is-fullheight">
+<div class="hero-body">
+<div class="container has-text-centered" *ngIf="!this.has_answered">
+
+  <div class="container"><button class="button" (click)="this.logs()"><span class="icon"><i class="fa fa-home"></i></span></button></div>
+
+  <div class="container" *ngFor="let sur of this.survey">
+    <div *ngIf="this.validateSurvey(sur)">
+    <p class="title display-4">{{sur.title}}</p>
+    <p class="subtitle">{{sur.subtitle}}</p>
+    <p>{{sur.views}}<span class="icon has-text-danger"><i class="fa fa-user"></i></span></p>
+    
+    <div class="container" *ngFor="let g of sur.groups">
+      <br>
+      <p class="title display-5">{{g.title}}</p>
+
+      <div class="container" *ngFor="let gc of g.closed_questions">
+        <p class="subtitle is-6">{{gc.title}}</p>
+        <div *ngIf="gc.is_multiple" class="alternatives">
+          <p class="subtitle has-text-danger is-6">Questão de múltipla escolha</p>
+          <div *ngFor="let alt of gc.alternatives" class="control">
+            <label class="checkbox">
+              <input type="checkbox" name="{{gc.title}}||{{g.title}}" (change)="this.setOption(sur, g, gc, alt, $event)">{{alt.text}}
+            </label>
+          </div>
+        </div>
+        <div *ngIf="!gc.is_multiple" class="alternatives control">
+          <div *ngFor="let alt of gc.alternatives;let altindex=index" class="control">
+            <label class="radio">
+              <input type="radio" name="{{gc.title}}||{{g.title}}" (change)="this.setOptionWithAltIndex(gc, alt, altindex, $event)">{{alt.text}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="container" *ngFor="let go of g.open_questions">
+        <p class="subtitle is-6">{{go.title}}</p>
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea is-hovered is-medium" [(ngModel)]="go.responses[go.responses.length-1]"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 1rem">
+      <!-- 
+        https://stackoverflow.com/questions/51758949/angular-6-change-class-with-onmouseover-on-a-div-with-ngfor
+      -->
+      <button (click)="this.saveAnswer()" class="button is-success is-outlined">Responder</button>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container has-text-centered" *ngIf="this.has_answered">
+  <p class="title display-5">Questionário respondido!</p>
+</div>
+
+</div>
+</div>

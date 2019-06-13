@@ -1,0 +1,74 @@
+<!--
+  <img src="{{this.auth.getInfoCurrentUser().photoURL}}" />
+  <h1>{{this.auth.getInfoCurrentUser().displayName}}</h1>
+
+  <div (scroll)="onScroll($event)"
+
+  https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp
+
+  -->
+<div class="hero">
+  
+  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
+    <div class="container">
+      
+      <div class="navbar-brand">
+        <p class="navbar-start navbar-item has-text-white">SURVY</p>  
+      </div>
+
+      
+      <div class="navbar-end">
+        
+        <div class="navbar-item"><div class="control has-icons-right">
+            <input class="input is-hovered is-rounded" placeholder="Busca rápida">
+            <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
+        </div></div>
+        
+        <div class="navbar-item is-hidden-touch has-text-white">
+          <p class="">Olá, {{this.auth.getInfoCurrentUser().displayName}}!<br><a (click)="this.auth.redirectToLogin()" class="icon is-small"><i class="fas fa-sign-out-alt"></i></a> Sair</p>
+          <span *ngIf="!this.auth.getInfoCurrentUser().photoURL" class="icon is-large is-right"><i class="fas fa-2x fa-user-circle"></i></span>
+          <figure *ngIf="this.auth.getInfoCurrentUser().photoURL" class="image is-32x32"><img class="is-rounded" src="{{this.auth.getInfoCurrentUser().photoURL}}"></figure>
+        </div>
+
+        <div class="navbar-item is-hidden-desktop has-text-white">
+          <p class="">Olá, {{this.auth.getInfoCurrentUser().displayName}}!<br><a (click)="this.auth.redirectToLogin()" class="icon is-small"><i class="fas fa-sign-out-alt"></i></a> Sair</p>
+          <span *ngIf="!this.auth.getInfoCurrentUser().photoURL" class="icon is-large is-right"><i class="fas fa-2x fa-user-circle"></i></span>
+          <figure *ngIf="this.auth.getInfoCurrentUser().photoURL" class="image is-32x32"><img class="is-rounded" src="{{this.auth.getInfoCurrentUser().photoURL}}"></figure>
+        </div>
+        
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container">
+
+    <div class="columns is-mobile" style="margin-top: 0.25rem">
+      <div class="column">
+        <button (click)="adicionarQuestionario()" class="button is-fullwidth is-info is-rounded">Adicionar Questionário</button>
+      </div>
+    </div>
+
+    <div *ngIf="this.p_surveys" class="content-surveys">
+      <div *ngFor="let item of this.p_surveys" class="card">
+
+      <div class="card-content">
+        <p class="title is-5">{{item.title}}</p>
+        <p class="subtitle is-6">{{item.subtitle}}</p>
+      </div>
+  
+      <footer class="card-footer">
+        <div class="card-footer-item">{{item.views}} <span class="icon has-text-info"><i class="fas fa-user"></i></span></div>
+        <div class="card-footer-item"><span class="icon has-text-grey" (click)="this.editarQuestionario(item.key)"><i class="fas fa-pen-alt"></i></span></div>
+        <div class="card-footer-item"><span class="icon has-text-danger" (click)="this.deletarQuestionario(item.key)"><i class="fas fa-trash-alt"></i></span></div>
+      </footer>
+
+    </div>
+    </div>
+
+  </div>
+
+
+</div>
+

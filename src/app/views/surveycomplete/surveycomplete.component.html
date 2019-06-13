@@ -1,0 +1,73 @@
+
+<div class="hero is-dark is-fullheight">
+
+  <div class="hero-body">
+    
+    <div class="container has-text-centered">
+      
+        <div class="columns is-vcentered is-block">
+          
+          <div class="column">
+            <p class="title display-4 has-text-grey-lighter">Completado</p>
+          </div>
+
+          <!--
+            https://angular.io/guide/animations
+            https://angular.io/guide/route-animations
+           -->
+
+          <div class="field has-addons is-hidden">
+            <input class="input" value="{{this.link_to_survey}}" disabled>
+            <div class="control">
+              <button class="button is-success">
+                <span class="icon"><i class="fas fa-check"></i></span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      <div class="column">
+        <p class="title is-4">Usuários:</p>
+
+        <div *ngFor="let us of this.survey_addresses; let i=index" class="">
+          <div class="column">
+            <div class="fields">
+              <div class="field">
+                <input class="input" placeholder="E-mail" [ngModelOptions]="{standalone:true}" [(ngModel)]="us.email" (ngModelChange)="this.getLinkSurvey(us.email, this.qid, i+1, us)">
+              </div>
+          </div>
+          
+            <div class="field has-addons">
+              <input class="input" value="{{us.token}}" readonly>
+              <div class="control">
+                <button class="button is-success">
+                  <span class="icon" (click)="this.copyToClipboard(us)"><i class="far fa-clipboard"></i></span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+      
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <button (click)="this.addUser()" class="button is-info" title="Adicionar Usuário"><span class="icon"><i class="fa fa-plus"></i></span></button>
+        </div>
+
+        <div class="column">
+          <button class="button" [disabled]="!this.survey_addresses" [ngClass]="{' is-success': this.survey_addresses.length, 'is-danger': !this.survey_addresses.length}" (click)="this.saveAndGoToHome()">
+            Salvar
+          </button>
+        </div>
+        <div class="column"><button (click)="this.goToHome()" title="Ir à Home" class="button"><span class="icon"><i class="fa fa-home"></i></span></button></div>
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>
