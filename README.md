@@ -21,6 +21,8 @@
   <li>* [x] O questionário deve salvar as respostas de forma simples, para que seja possível buscar os resultados no futuro.</li>
 </ul>
 
+<h4>Para uma live demo no stackblitz <a href="https://stackblitz.com/edit/pfinal-webapp-zigmqj">clique aqui</a>.</h4>
+
 <h2>Desenvolvimento</h2>
 <b>Valor notar que é necessário ter uma conta no Google e acesso ao Firebase Console para utilizar o projeto.</b>
 <h3>Routing</h3>
@@ -32,6 +34,7 @@
 <p>O serviço survey, por sua vez, foi feito para lidar com as transações no banco de dados a fim de salvar, editar, deletar ou visualizar algum dado.</p>
 <h3>Classes</h3>
 <p>Todas as classes utilizadas estão disponíveis no arquivo <a href="https://github.com/GomesDosSantos/Survy-webapp/blob/master/src/app/classes.ts">classes</a>, representates de como os dados são armazendas no banco de dados.</p>
+<p>As classes são: <i>Survey</i>, representante dos dados do questionário, <i>Group</i>, o grupo de questões de um questionário, <i>QuestionOpen</i>, uma questão aberta, <i>Question</i>, uma questão fechada juntamente com suas alternativas, <i>Alternative</i>, alternativa de uma questão fechada, <i>User</i>, o usuário do sistema, e <i>Answer</i>, uma classe que estrutura como é salvo a lista de possíveis pessoas para responder um questionário.</p>
 
 <h2>Componentes</h2>
 
