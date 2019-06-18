@@ -1,6 +1,6 @@
 # Survy
 
-<p>O sistema desenvolvido foi uma proposta de trabalho dado pelo professor Arley Ferreira na Fatec Prof. Jessen Vidal de São José dos Campos como projeto do semestre.</p>
+<p>O sistema desenvolvido foi uma proposta de trabalho dado pelo professor <i>Arley Ferreira</i> na Fatec Prof. Jessen Vidal de São José dos Campos como projeto do semestre.</p>
 <p>Para tanto, foi definido um sistema que visa criar um questionário de respostas a serem respondidas por pessoas elegíveis ao mesmo utilizando como framework o Angular, e o serviço de banco de dados em tempo real do Google, Firebase Real-Time Database. Portanto,</p>
 <h3>Dependências</h3>
 <p>
@@ -48,6 +48,8 @@
 <p>É um componenete intermediário entre <i>Survey</i> e <i>Answer</i>, neste component, é possível definir quais usuários (e-mails) podem ter acesso ao questionário recém criado ou editado, não apenas isso, mas também é criado um token aleatório para cada e-mail juntamente para cópia rápida do link para responder ao questionário.</p>
 
 <h3>Answer</h3>
+<p>A rota para este componente é definida como: <b><i>answer/:user/:survey/:email/:token</i></b>, sendo: <i>:user</i> o id do usuário que criou o questionário, <i>:survey</i> o identifador do questionário a ser respondido, <i>:email</i> o e-mail da pessoa a responder e, finalmente, <i>:token</i> o token da pessoa a responder o questionário. Com tudo isso, é possível fazer uma busca do questionário e a lista de pessoas que podem responder o mesmo no lado do cliente.</p>
+
 <p>Neste componente é criado dois objetos questionário, um deles, o questionário original, e o outro, o que o usuário de fato responde.</p>
 <p>Tal cuidado foi tomado devido a forma em que é manipulado as questões fechadas, ou seja, as que possuem alternativa. Estas questões possuem um contador que aumenta conforme as resposta por cada usuário, resultando em um montante de usuários que responderam tal questão, portanto, ao efetivamente salvar as respostas selecionadas pelo usuário, é feita uma verificação das diferenças entre o original e o editado, a fim de inserir apenas as diferenças e mesclar os novos dados no banco de dados.</p>
 
